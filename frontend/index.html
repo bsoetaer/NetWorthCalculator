@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example</title>
+    </head>
+    <body>
+        <p>This is an example of a simple HTML page with one paragraph.</p>
+        <script>
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", "http://localhost:8081/time", false ); // false for synchronous request
+            xmlHttp.send( null );
+            console.log(xmlHttp.responseText);
+        </script>
+    </body>
+</html>
