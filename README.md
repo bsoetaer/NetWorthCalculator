@@ -1,1 +1,1 @@
-# NetWothCalculator
+# NetWorthCalculator
