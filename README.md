@@ -78,4 +78,13 @@ Could use HTTP caching for the currency rate conversions. If a user is just jump
 * How would you support multiple users editing concurrently?
 Current implementation is stateless and the data is only unique to a single session. Each user to access the webpage will get a separate instance of the javascript so this is not a concern. Is this true?
 If the application had state and we persisted data across sessions, then could do a couple things depending on the use case. 
-* 
+
+Frontend What to test:
+* All currency symbols update when currency picker changes
+* Base currency type does not change unless editted in that currency type
+* Tables render correctly
+* Editing a value calls the backend
+* Changing a currency calls the backend
+* Values update when receiving data from backend
+* Larger total than what inputs can hold is returned
+* Negative total
