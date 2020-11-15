@@ -13,47 +13,47 @@ class Calculator extends Component {
                         category: 'Cash and Investments',
                         values: [
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Chequing',
                                 value: 2000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Savings for Taxes',
                                 value: 4000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Rainy Day Fund',
                                 value: 506.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Savings for Fun',
                                 value: 5000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Savings for Travel',
                                 value: 400.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Savings for Personal Development',
                                 value: 200.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Investment 1',
                                 value: 5000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Investment 2',
                                 value: 60000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Investment 3',
                                 value: 2000.00
                             }
@@ -63,12 +63,12 @@ class Calculator extends Component {
                         category: 'Long Term Assets',
                         values: [
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Primary Home',
                                 value: 455000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Second Home',
                                 value: 1564321.00
                             }
@@ -83,13 +83,13 @@ class Calculator extends Component {
                         category: 'Short Term Liabilities',
                         values: [
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Credit Card 1',
                                 payment: 200.00,
                                 value: 4342.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Credit Card 2',
                                 payment: 150.00,
                                 value: 322.00
@@ -100,25 +100,25 @@ class Calculator extends Component {
                         category: 'Long Term Debt',
                         values: [
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Mortgage 1',
                                 payment: 2000.00,
                                 value: 250999.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Mortgage 2',
                                 payment: 3500.00,
                                 value: 632634.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Line of Credit',
                                 payment: 500.00,
                                 value: 10000.00
                             },
                             {
-                                baseCurrency: "CAD",
+                                baseCurrency: 'CAD',
                                 name: 'Investment Loan',
                                 payment: 700.00,
                                 value: 10000.00
@@ -128,8 +128,8 @@ class Calculator extends Component {
                 ]
             },
             currency: {
-                name: "CAD",
-                symbol: "$"
+                name: 'CAD',
+                symbol: '$'
             },
             total: 15
         }

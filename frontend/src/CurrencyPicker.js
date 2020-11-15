@@ -12,14 +12,14 @@ const currencies = [
     },
     {
         name: 'CAD',
-        symbol: ''
+        symbol: '$'
     },
     {
         name: 'CHF',
         symbol: 'Fr.'
     },
     {
-        name: 'CNH',
+        name: 'CNY',
         symbol: '¥'
     },
     {

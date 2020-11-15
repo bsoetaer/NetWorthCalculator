@@ -9,5 +9,6 @@ public class NetWorthCalculatorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NetWorthCalculatorApplication.class, args);
 	}
+	// TODO Add actual RateProvider
 
 }
