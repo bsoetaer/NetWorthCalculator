@@ -1,23 +1,33 @@
 # NetWorthCalculator
 
-Need to be aware of text display room with large numbers
--- Should have enough space. Provide tooltip on hover if user shrinks screen too much so they at least have some way to view them
-Need to be aware of numbers exceeding variable size
--- Restrict entry values to reasonable length
--- If totals exceed possible values. Show error to user and highlight that the totals displayed are inaccurate
+Original design was to have Javascript own the data. This led to a messy REST API where there was only a single endpoint and it required EVERYTHING to be sent in every message. This initial design was due to a misunderstanding of the data being in memory. In my head this translated to in memory in the frontend. It makes a lot more sense to move this to the backend though and then have simple REST calls for getting it all, updating a single value, or changing the currency.
 
-Frontend Design:
-1 Calculator class
-* 1 Net Worth Total
+Old frontend design:
+* 1 Calculator class - owns the data
+* 2 AccountingTable - displays assets and liabilities
 * 1 Currency Picker
-* 2 Tables, 1 for assets, 1 for liabilities
-* Owns data state
-** Data preloaded in memory
-** Data not saved to file or database. Data changes do not persist across sessions.
+* Backend calls pass entire state, Expects backend to update relevant totals and return entire state
 
-Net Worth Total
-* Basic text display
-* If negative display with negative symbol
+Old backend design:
+* 1 endpoint calculate
+* Takes entire frontend state, updates values and returns it.
+* Does not own any data. Completely stateless except keeping a cache of currency rates so we do not need to refetch
+
+New frontend design
+* Similar layout but how it gets the data is different
+* Rather than monolithic state, its broken down into assets, categories, liabilities, currency, and totals.
+* On load call backend to get values. 2 calls, 1 for convert to get all values and 1 for categories
+* On update, only update relevant parts of state.
+* Check responseId to make sure we do not update with old values. Newest response id wins
+
+New backend design
+* Owns data. In static class for now. Change to database/file could be a future improvement.
+* static file generates default data and stores it.
+* each endpoint includes an incrementing responseId in the response. This is in case multiple requests are received at once.
+* 3 endpoints
+* value - Update only. Takes an item id, and a bool of whether this is an asset or a liability. Updates value in dataset and returns all 3 totals
+* convert - GET only. Takes a currency as a string. Returns list of totals, assets, and liabilities. Each value (asset/liability) has an id, and a category id.
+* category - GET only. Takes a bool of whether to get asset or liability categories. Returns list of category names/ids for the given type.
 
 Currency Picker
 * 10 option dropdown
@@ -33,23 +43,7 @@ Tables
 * Fire off calculation request once cell loses focus or the user presses enter
 ** Prevents un-necessary traffic for every character the customer types in
 ** May make user experience worse until they figure out to click off or press enter
-** Potential improvement: Timer to also send off request if field was edited and not deselected but 5 seconds have passed.
 * Do not adjust values if user has not changed the currency type, even if the currency rate has changed.
-
-Backend Design
-* Single endpoint named "calculate"
-* Takes JSON with 3 elements
-** currencyType with subElements oldCurrency and newCurrency. This is optional.
-** assets. contains values array. Collection of id, value pairs
-** liabilities. contains values array. Collection of id, value pairs
-* Cache currency rates hourly. Can get rates from https://exchangeratesapi.io/
-** Won't get the most up to the minute rates but will provide a better user experience 
-
-Response
-* JSON with 3 elements
-** assets with values array and a total element
-** liabilities with values array and a total element
-** netWorth
 
 Error Response
 * JSON with message element
