@@ -10,14 +10,6 @@ class App extends Component {
       currentTime: null
     }
   }
-  
-  componentDidMount()
-  {
-    fetch('http://localhost:8080/time')
-    .then(response => response.text())
-    .then((data) => this.setState({currentTime: data}))
-    .catch(err => { console.log(err); });
-  }
 
   render() {
     return (

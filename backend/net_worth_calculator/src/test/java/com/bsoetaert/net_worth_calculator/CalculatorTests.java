@@ -1,16 +1,19 @@
 package com.bsoetaert.net_worth_calculator;
 
+import com.bsoetaert.net_worth_calculator.model.*;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 
 public class CalculatorTests {
     @Test
-    public void largeTotals() {
-
+    public void largePositiveTotal() {
     }
 
     @Test

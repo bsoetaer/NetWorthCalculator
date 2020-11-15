@@ -41,12 +41,4 @@ public class AccountingValue {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
-
-    // Needed for JSON convert
-    public AccountingValue() {}
-
-    public AccountingValue(String name, BigDecimal value) {
-        this.name = name;
-        this.value = value;
-    }
 }

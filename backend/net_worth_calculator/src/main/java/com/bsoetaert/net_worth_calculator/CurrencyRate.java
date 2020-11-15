@@ -3,11 +3,12 @@ package com.bsoetaert.net_worth_calculator;
 import com.bsoetaert.net_worth_calculator.model.Currency;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 public class CurrencyRate {
     private String targetCurrency;
-    private Date lastUpdated;
+    private LocalDate lastUpdated;
     private Map<String, BigDecimal> conversionRates;
 
     public String getTargetCurrency() {
@@ -18,11 +19,11 @@ public class CurrencyRate {
         this.targetCurrency = targetCurrency;
     }
 
-    public Date getLastUpdated() {
+    public LocalDate getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
+    public void setLastUpdated(LocalDate lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
@@ -44,7 +45,7 @@ public class CurrencyRate {
 
     public CurrencyRate(String targetCurrency) {
         this.targetCurrency = targetCurrency;
-        this.lastUpdated = new Date();
+        this.lastUpdated = LocalDate.now();
         this.conversionRates = new HashMap<String, BigDecimal>();
         this.conversionRates.put(targetCurrency, new BigDecimal(1));
     }

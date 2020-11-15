@@ -1,6 +1,7 @@
 package com.bsoetaert.net_worth_calculator;
 
 import com.bsoetaert.net_worth_calculator.model.Currency;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -55,7 +56,7 @@ public class CurrencyExchange {
     }
 
     public void updateRates(String baseCurrency) {
-        Date currentDate = new Date();
+        LocalDate currentDate = LocalDate.now();
         if(rates.containsKey(baseCurrency) && rates.get(baseCurrency).getLastUpdated().compareTo(currentDate) == 0)
         {
             return;
@@ -86,7 +87,7 @@ public class CurrencyExchange {
         }
         else {
             newRate.setTargetCurrency(baseCurrency);
-            newRate.setLastUpdated(new Date());
+            newRate.setLastUpdated(LocalDate.now());
             rates.put(baseCurrency, newRate);
         }
     }
