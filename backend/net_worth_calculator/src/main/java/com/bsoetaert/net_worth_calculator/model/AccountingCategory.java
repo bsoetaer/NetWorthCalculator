@@ -1,22 +1,39 @@
 package com.bsoetaert.net_worth_calculator.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "id",
+        "name"
+})
 public class AccountingCategory {
-    private String category;
-    private AccountingItem[] values;
 
-    public String getCategory() {
-        return category;
+    @JsonProperty("id")
+    private Integer id;
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public AccountingItem[] getValues() {
-        return values;
+    @JsonProperty("name")
+    public String getName() {
+        return name;
     }
 
-    public void setValues(AccountingItem[] values) {
-        this.values = values;
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
     }
+
 }

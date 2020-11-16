@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
+import { isAssertionExpression } from 'typescript';
 
 const useStyles = makeStyles({
     root: {
@@ -108,15 +109,15 @@ function AccountingTable(props) {
                                 decimalCharacter="."
                                 digitGroupSeparator=","
                                 outputFormat="string"
-                                value={props.data.total}>
+                                value={props.total}>
                             </CurrencyTextField>
                         </TotalTableCell>
                     </TableRow>
                 </TableHead>
-                {props.data.items.map(category => ([
-                    <TableHead key ={category.category + "Header"}>
-                        <TableRow key = {category.category}>
-                            <HeaderTableCell key = "CategoryName">{category.category}</HeaderTableCell>
+                {props.categories.map(category => ([
+                    <TableHead key ={category.id + "Header"}>
+                        <TableRow key = {category.id}>
+                            <HeaderTableCell key = "CategoryName">{category.name}</HeaderTableCell>
                             {props.columns.map(col => {
                                 if(col.Header === 'Name')
                                     return null
@@ -124,9 +125,10 @@ function AccountingTable(props) {
                             })}
                         </TableRow>
                     </TableHead>,
-                    <TableBody key = {category.category + "Body"}>
-                        {category.values.map(row => (
-                            <TableRow key = {row.name}>
+                    <TableBody key = {category.id + "Body"}>
+                        {props.data.map(row => (
+                            (row.category !== category.id) ? null :
+                            <TableRow key = {row.id}>
                                 <ItemTableCell align="left" key="name" height={3}>
                                     {row.name}
                                 </ItemTableCell>
@@ -140,7 +142,7 @@ function AccountingTable(props) {
                                             decimalCharacter="."
                                             digitGroupSeparator=","
                                             minimumValue="0"
-                                            onBlur={(e, v) => props.onChange(e, v, category.category, row['name'], col.accessor)}
+                                            onBlur={(e, v) => props.onChange(e, v, row.id, col.accessor)}
                                             onKeyPress={(e) => onKeyPress(e)}
                                             outputFormat="string"
                                             value={row.values.find(e => e.name === col.accessor).value}>

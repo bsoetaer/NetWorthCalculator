@@ -1,0 +1,260 @@
+{
+  "totals": {},
+  "assets": [
+    {
+      "id": 1,
+      "category": 1,
+      "name": "Chequing",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 2000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": 1,
+      "name": "Savings for Taxes",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 4000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "category": 1,
+      "name": "Rainy Day Fund",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 506.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "category": 1,
+      "name": "Savings for Fun",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 5000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "category": 1,
+      "name": "Savings for Travel",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 400.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "category": 1,
+      "name": "Savings for Personal Development",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 200.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "category": 1,
+      "name": "Investment 1",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 5000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "category": 1,
+      "name": "Investment 2",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 60000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "category": 1,
+      "name": "Investment 3",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 2000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "category": 2,
+      "name": "Primary Home",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 455000.00,
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "category": 2,
+      "name": "Second Home",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 1564321.00,
+          "name": "value"
+        }
+      ]
+    }
+  ],
+  "liabilities": [
+    {
+      "id": 12,
+      "category": 3,
+      "name": "Credit Card 1",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 4342.00,
+          "name": "value"
+        },
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 200.00,
+          "name": "payment"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "category": 3,
+      "name": "Credit Card 2",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 322.00,
+          "name": "value"
+        },
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 150.00,
+          "name": "payment"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "category": 4,
+      "name": "Mortgage 1",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 250999.00,
+          "name": "value"
+        },
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 2000.00,
+          "name": "payment"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "category": 4,
+      "name": "Mortgage 2",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 632634.00,
+          "name": "value"
+        },
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 3500.00,
+          "name": "payment"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "category": 4,
+      "name": "Line of Credit",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 10000.00,
+          "name": "value"
+        },
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 500.00,
+          "name": "payment"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "category": 4,
+      "name": "Investment Loan",
+      "values": [
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 10000.00,
+          "name": "value"
+        },
+        {
+          "baseCurrency": "CAD",
+          "baseValue": 700.00,
+          "name": "payment"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Cash and Investments"
+    },
+    {
+      "id": 2,
+      "name": "Long Term Assets"
+    },
+    {
+      "id": 3,
+      "name": "Short Term Liabilities"
+    },
+    {
+      "id": 4,
+      "name": "Long Term Debt"
+    }
+  ]
+}
+

@@ -31,264 +31,19 @@ class Calculator extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            assets: {
-                total: 7,
-                items: [
-                    {
-                        category: 'Cash and Investments',
-                        values: [
-                            {
-                                name: 'Chequing',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 2000.00,
-                                        name: 'value',
-                                        value: 2000.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Savings for Taxes',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 4000.00,
-                                        name: 'value',
-                                        value: 4000.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Rainy Day Fund',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 506.00,
-                                        name: 'value',
-                                        value: 506.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Savings for Fun',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 5000.00,
-                                        name: 'value',
-                                        value: 5000.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Savings for Travel',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 400.00,
-                                        name: 'value',
-                                        value: 400.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Savings for Personal Development',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 200.00,
-                                        name: 'value',
-                                        value: 200.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Investment 1',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 5000.00,
-                                        name: 'value',
-                                        value: 5000.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Investment 2',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 60000.00,
-                                        name: 'value',
-                                        value: 60000.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Investment 3',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 2000.00,
-                                        name: 'value',
-                                        value: 2000.00
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        category: 'Long Term Assets',
-                        values: [
-                            {
-                                name: 'Primary Home',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 455000.00,
-                                        name: 'value',
-                                        value: 455000.00
-                                    }
-                                ]
-                            },
-                            {
-                                name: 'Second Home',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 1564321.00,
-                                        name: 'value',
-                                        value: 1564321.00
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+            totals: {
+                "assets": 0.00,
+                "liabilities": 0.00,
+                "netWorth": 0.00
             },
-            liabilities: {
-                total: 5,
-                items: [
-                    {
-                        category: 'Short Term Liabilities',
-                        values: [
-                            {
-                                name: 'Credit Card 1',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 4342.00,
-                                        name: 'value',
-                                        value: 4342.00
-                                    },
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 200.00,
-                                        name: 'payment',
-                                        value: 200.00
-                                    },
-                                ]
-                            },
-                            {
-                                name: 'Credit Card 2',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 322.00,
-                                        name: 'value',
-                                        value: 322.00
-                                    },
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 150.00,
-                                        name: 'payment',
-                                        value: 150.00
-                                    },
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        category: 'Long Term Debt',
-                        values: [
-                            {
-                                name: 'Mortgage 1',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 250999.00,
-                                        name: 'value',
-                                        value: 250999.00
-                                    },
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 2000.00,
-                                        name: 'payment',
-                                        value: 2000.00
-                                    },
-                                ]
-                            },
-                            {
-                                name: 'Mortgage 2',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 632634.00,
-                                        name: 'value',
-                                        value: 632634.00
-                                    },
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 3500.00,
-                                        name: 'payment',
-                                        value: 3500.00
-                                    },
-                                ]
-                            },
-                            {
-                                name: 'Line of Credit',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 10000.00,
-                                        name: 'value',
-                                        value: 10000.00
-                                    },
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 500.00,
-                                        name: 'payment',
-                                        value: 500.00
-                                    },
-                                ]
-                            },
-                            {
-                                name: 'Investment Loan',
-                                values: [
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 10000.00,
-                                        name: 'value',
-                                        value: 10000.00
-                                    },
-                                    {
-                                        baseCurrency: 'CAD',
-                                        baseValue: 700.00,
-                                        name: 'payment',
-                                        value: 700.00
-                                    },
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
+            assets: [],
+            liabilities: [],
+            categories: [],
             currency: {
                 name: 'CAD',
                 symbol: '$'
             },
-            total: 15
+            userId: -1
         }
     }
 
@@ -298,26 +53,114 @@ class Calculator extends Component {
         newState.currency.name = currency.name;
         newState.currency.symbol = currency.symbol;
         this.setState(newState);
-        this.calculateTotals();
-        //TODO Call backend and update everything
+        this.convert(currency.name, currency.symbol);
     }
 
-    handleValueChanged(event, value, itemType, category, name, element) {
+    handleValueChanged(event, value, itemType, itemId, valueName) {
         //TODO Maybe change this to object spread?
         let newState = Object.assign({}, this.state);
-        let itemToUpdate = newState[itemType.toLowerCase()].items.find(cat => cat.category === category).values.find(v => v.name === name).values.find(x => x.name === element);
-        itemToUpdate.baseValue = value;
-        itemToUpdate.baseCurrency = newState.currency.name;
+        let itemToUpdate = newState[itemType.toLowerCase()].find(item => item.id === itemId).values.find(x => x.name === valueName);
         itemToUpdate.value = value;
         this.setState(newState);
-        this.calculateTotals();
-        //TODO Call backend and update totals
-        //TODO Make sure totals are up to date on first load
+        this.updateValue(itemType, itemId, valueName, value);
     }
 
     componentDidMount()
     {
-        this.calculateTotals();
+        this.createSession();
+    }
+
+    updateValue(itemType, itemId, valueName, value)
+    {
+        let update = {
+            "currency": this.state.currency.name,
+            "name": valueName,
+            "value": value,
+        }
+
+        let url = new URL("http://localhost:8080/value");
+        let params = {userId: this.state.userId, id: itemId};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+        console.log(url.toString());
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(update)
+        };
+        fetch(url, requestOptions)
+            .then(response => this.convertResponse(response))
+            .then((data) => {
+                let newState = Object.assign({}, this.state);
+                let itemToUpdate = newState[itemType.toLowerCase()].find(item => item.id === itemId).values.find(x => x.name === valueName);
+                itemToUpdate.value = value;
+                newState.totals = data;
+                this.setState(newState);
+            })
+            .catch(err => { alert(err) });
+    }
+
+    convertResponse(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(data => {
+                throw Error(data.message)});
+        }
+    }
+
+    createSession()
+    {
+        const requestOptions = {
+            method: 'POST'
+        };
+        fetch('http://localhost:8080/user', requestOptions)
+            .then(response => this.convertResponse(response))
+            .then((data) => {
+                let newState = Object.assign({}, this.state);
+                newState.userId = data.userId;
+                this.setState(newState);
+            })
+            .then(() => this.getCategories())
+            .catch(err => { alert(err) });
+    }
+
+    getCategories()
+    {
+        let url = new URL("http://localhost:8080/categories");
+        let params = {userId:this.state.userId};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+        fetch(url)
+            .then(response => this.convertResponse(response))
+            .then((data) => {
+                let newState = Object.assign({}, this.state);
+                newState.categories = data;
+                this.setState(newState);
+            })
+            .then(() => this.convert(this.state.currency.name, this.state.currency.symbol))
+            .catch(err => { alert(err) });
+    }
+
+    convert(currencyName, currencySymbol)
+    {
+        let url = new URL("http://localhost:8080/convert");
+        let params = {userId: this.state.userId, currency: currencyName};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+        fetch(url)
+            .then(response => this.convertResponse(response))
+            .then((data) => {
+                let newState = Object.assign({}, this.state);
+                newState.currency.name = currencyName;
+                newState.currency.symbol = currencySymbol;
+                newState.totals = data.totals;
+                newState.assets = data.assets;
+                newState.liabilities = data.liabilities;
+                this.setState(newState);
+            })
+            .catch(err => { alert(err) });
     }
 
     calculateTotals()
@@ -333,17 +176,35 @@ class Calculator extends Component {
             .catch(err => { alert(err) });
     }
 
+    getMatchingCategories(items)
+    {
+        let itemCategoryIds = new Set();
+        items.forEach(item => {
+            itemCategoryIds.add(item.category)
+        });
+
+        let matchingCategories = [];
+        this.state.categories.forEach(cat => {
+            if(itemCategoryIds.has(cat.id))
+            {
+                matchingCategories.push(cat);
+            }
+        });
+
+        return matchingCategories;
+    }
+
     render() {
         const { classes } = this.props;
-        const assetsData = this.state.assets;
-        const liabilitiesData = this.state.liabilities;
+        const assetCategories = this.getMatchingCategories(this.state.assets);
+        const liabilityCategories = this.getMatchingCategories(this.state.liabilities);
         const assetsColumns = [
             {
                 Header: 'Name',
                 accessor: 'name'
             },
             {
-                Header: '',
+                Header: 'Amount',
                 accessor: 'value'
             }
         ];
@@ -382,23 +243,27 @@ class Calculator extends Component {
                             decimalCharacter="."
                             digitGroupSeparator=","
                             outputFormat="string"
-                            value={this.state.total}/>
+                            value={this.state.totals.netWorth}/>
                     </TotalGrid>
                     <Grid item xs={6}>
                         <AccountingTable 
+                            categories={assetCategories}
                             columns={assetsColumns} 
-                            data={assetsData} 
+                            data={this.state.assets}
+                            total={this.state.totals.assets}
                             name='Assets' 
                             currency={this.state.currency.symbol} 
-                            onChange={(e,v,c,n,el) => this.handleValueChanged(e, v, 'assets', c, n, el)}/>
+                            onChange={(e,v,itemId,valueName) => this.handleValueChanged(e, v, 'assets', itemId, valueName)}/>
                     </Grid>
                     <Grid item xs={6}>
                         <AccountingTable 
                             columns={liabilitiesColumns} 
-                            data={liabilitiesData} 
+                            data={this.state.liabilities}
+                            categories={liabilityCategories}
+                            total={this.state.totals.liabilities}
                             name='Liabilities' 
                             currency={this.state.currency.symbol} 
-                            onChange={(e,v,c,n,el) => this.handleValueChanged(e, v, 'liabilities', c, n, el)}/>
+                            onChange={(e,v,itemId,valueName) => this.handleValueChanged(e, v, 'liabilities', itemId, valueName)}/>
                     </Grid>
                 </Grid>
             </div>

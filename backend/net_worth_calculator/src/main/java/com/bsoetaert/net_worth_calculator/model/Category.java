@@ -1,8 +1,6 @@
 package com.bsoetaert.net_worth_calculator.model;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -14,20 +12,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "id",
-        "name",
-        "category",
-        "values"
+        "name"
 })
-public class AccountingItem {
+public class Category {
 
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("category")
-    private Integer category;
-    @JsonProperty("values")
-    private List<AccountingValue> values = null;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("id")
     public Integer getId() {
@@ -49,32 +43,14 @@ public class AccountingItem {
         this.name = name;
     }
 
-    @JsonProperty("category")
-    public Integer getCategory() {
-        return category;
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
     }
 
-    @JsonProperty("category")
-    public void setCategory(Integer category) {
-        this.category = category;
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
-    @JsonProperty("values")
-    public List<AccountingValue> getValues() {
-        return values;
-    }
-
-    @JsonProperty("values")
-    public void setValues(List<AccountingValue> values) {
-        this.values = values;
-    }
-
-    public AccountingValue getValue(String name) {
-        for (AccountingValue acctValue : values) {
-            if (acctValue.getName().equals(name)) {
-                return acctValue;
-            }
-        }
-        return null;
-    }
 }

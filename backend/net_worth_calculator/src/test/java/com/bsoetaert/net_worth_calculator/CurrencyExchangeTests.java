@@ -19,8 +19,8 @@ import static org.mockito.Mockito.times;
 public class CurrencyExchangeTests {
     @Test
     public void updateRatesFail() {
-        CurrencyExchange exchange = new CurrencyExchange(new ArrayList<>());
-        assertThrows(ResponseStatusException.class, () -> exchange.updateRates("CAD"));
+        DataStore.reset();
+        assertThrows(ResponseStatusException.class, () -> CurrencyExchange.updateRates("CAD", new ArrayList<>()));
     }
 
     @Test
@@ -46,14 +46,14 @@ public class CurrencyExchangeTests {
         providerList.add(provider1);
         providerList.add(provider2);
 
-        CurrencyExchange exchange = new CurrencyExchange(providerList);
+        DataStore.reset();
 
-        assertFalse(exchange.canConvert(baseCurrency, targetCurrency));
-        assertThrows(NullPointerException.class, () -> exchange.convert(startValue, baseCurrency, targetCurrency));
+        assertFalse(CurrencyExchange.canConvert(baseCurrency, targetCurrency));
+        assertThrows(NullPointerException.class, () -> CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
 
-        exchange.updateRates("CAD");
-        assertTrue(exchange.canConvert(baseCurrency, targetCurrency));
-        assertEquals(startValue.multiply(exchangeRate1), exchange.convert(startValue, baseCurrency, targetCurrency));
+        CurrencyExchange.updateRates("CAD", providerList);
+        assertTrue(CurrencyExchange.canConvert(baseCurrency, targetCurrency));
+        assertEquals(startValue.multiply(exchangeRate1), CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
     }
 
     @Test
@@ -76,14 +76,14 @@ public class CurrencyExchangeTests {
         providerList.add(provider1);
         providerList.add(provider2);
 
-        CurrencyExchange exchange = new CurrencyExchange(providerList);
+        DataStore.reset();
 
-        assertFalse(exchange.canConvert(baseCurrency, targetCurrency));
-        assertThrows(NullPointerException.class, () -> exchange.convert(startValue, baseCurrency, targetCurrency));
+        assertFalse(CurrencyExchange.canConvert(baseCurrency, targetCurrency));
+        assertThrows(NullPointerException.class, () -> CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
 
-        exchange.updateRates("CAD");
-        assertTrue(exchange.canConvert(baseCurrency, targetCurrency));
-        assertEquals(startValue.multiply(exchangeRate2), exchange.convert(startValue, baseCurrency, targetCurrency));
+        CurrencyExchange.updateRates("CAD", providerList);
+        assertTrue(CurrencyExchange.canConvert(baseCurrency, targetCurrency));
+        assertEquals(startValue.multiply(exchangeRate2), CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
 
     }
 
@@ -102,10 +102,10 @@ public class CurrencyExchangeTests {
         HashMap<String, CurrencyRate> startingRates = new HashMap<>();
         startingRates.put(targetCurrency, rate1);
 
-        CurrencyExchange exchange = new CurrencyExchange(new ArrayList<>(), startingRates);
-        exchange.canConvert(baseCurrency, targetCurrency);
+        DataStore.setExchangeRates(startingRates);
+        CurrencyExchange.canConvert(baseCurrency, targetCurrency);
 
-        assertEquals(startValue.multiply(exchangeRate1), exchange.convert(startValue, baseCurrency, targetCurrency));
+        assertEquals(startValue.multiply(exchangeRate1), CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class CurrencyExchangeTests {
         BigDecimal exchangeRate2 = new BigDecimal(String.valueOf(2.0));
 
         CurrencyRate rate2 = new CurrencyRate(targetCurrency);
-        rate2.addStartCurrency(baseCurrency, exchangeRate1);
+        rate2.addStartCurrency(baseCurrency, exchangeRate2);
         IRateProvider provider1 = Mockito.mock(IRateProvider.class);
         Mockito.when(provider1.getName()).thenReturn("Mock1");
         Mockito.when(provider1.getRates(anyString())).thenReturn(rate2);
@@ -133,16 +133,18 @@ public class CurrencyExchangeTests {
         ArrayList<IRateProvider> providerList = new ArrayList<>();
         providerList.add(provider1);
 
-        CurrencyExchange exchange = new CurrencyExchange(providerList, startingRates);
-        exchange.canConvert(baseCurrency, targetCurrency);
+        DataStore.reset();
+        DataStore.setExchangeRates(startingRates);
 
-        assertEquals(startValue.multiply(exchangeRate1), exchange.convert(startValue, baseCurrency, targetCurrency));
+        CurrencyExchange.updateRates(targetCurrency, providerList);
+
+        assertEquals(startValue.multiply(exchangeRate1), CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
     }
 
     @Test
     public void canConvertFail() {
-        CurrencyExchange exchange = new CurrencyExchange(new ArrayList<>());
-        exchange.canConvert("CAD", "CAD");
+        DataStore.reset();
+        CurrencyExchange.canConvert("CAD", "CAD");
     }
 
     @Test
@@ -157,9 +159,10 @@ public class CurrencyExchangeTests {
         HashMap<String, CurrencyRate> startingRates = new HashMap<>();
         startingRates.put(targetCurrency, rate1);
 
-        CurrencyExchange exchange = new CurrencyExchange(new ArrayList<>(), startingRates);
-        exchange.canConvert(baseCurrency, targetCurrency);
+        DataStore.setExchangeRates(startingRates);
 
-        assertEquals(startValue.multiply(exchangeRate1), exchange.convert(startValue, baseCurrency, targetCurrency));
+        CurrencyExchange.canConvert(baseCurrency, targetCurrency);
+
+        assertEquals(startValue.multiply(exchangeRate1), CurrencyExchange.convert(startValue, baseCurrency, targetCurrency));
     }
 }

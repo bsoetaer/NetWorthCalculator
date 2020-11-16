@@ -15,48 +15,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CurrencyExchange {
-    Logger logger = LoggerFactory.getLogger(CurrencyExchange.class);
-    private Map<String, CurrencyRate> rates = new HashMap<>();
-    private Collection<IRateProvider> rateProviders;
+    static Logger logger = LoggerFactory.getLogger(CurrencyExchange.class);
 
-    public Map<String, CurrencyRate> getRates() {
-        return rates;
-    }
-
-    public void setRates(Map<String, CurrencyRate> rates) {
-        this.rates = rates;
-    }
-
-    public void setRateProviders(Collection<IRateProvider> rateProviders) {
-        this.rateProviders = rateProviders;
-    }
-
-    public Boolean canConvert(String baseCurrency, String newCurrency) {
+    public static Boolean canConvert(String baseCurrency, String newCurrency) {
         if(baseCurrency.equals(newCurrency))
             return true;
 
+        Map<String, CurrencyRate> rates = DataStore.getExchangeRates();
         return (rates.containsKey(newCurrency) && rates.get(newCurrency).canConvert(baseCurrency));
     }
 
-    public BigDecimal convert(BigDecimal value, String baseCurrency, String newCurrency) {
+    public static BigDecimal convert(BigDecimal value, String baseCurrency, String newCurrency) {
         if(baseCurrency.equals(newCurrency))
             return value;
+        Map<String, CurrencyRate> rates = DataStore.getExchangeRates();
         return rates.get(newCurrency).convertFrom(value, baseCurrency);
     }
 
-    public CurrencyExchange(Collection<IRateProvider> rateProviders)
-    {
-        this(rateProviders, new HashMap<>());
-    }
-
-    public CurrencyExchange(Collection<IRateProvider> rateProviders, Map<String, CurrencyRate> rates)
-    {
-        this.rateProviders = rateProviders;
-        this.rates = rates;
-    }
-
-    public void updateRates(String baseCurrency) {
+    public static void updateRates(String baseCurrency, Collection<IRateProvider> rateProviders) {
         LocalDate currentDate = LocalDate.now();
+        Map<String, CurrencyRate> rates = DataStore.getExchangeRates();
         if(rates.containsKey(baseCurrency) && rates.get(baseCurrency).getLastUpdated().compareTo(currentDate) == 0)
         {
             return;
