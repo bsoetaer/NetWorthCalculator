@@ -65,7 +65,7 @@ public class AccountingItem {
 
     public AccountingValue getValue(String name) {
         for (AccountingValue acctValue : values) {
-            if (acctValue.getName().equals(name)) {
+            if (acctValue.getName() != null && acctValue.getName().equals(name)) {
                 return acctValue;
             }
         }

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountingValueTests {
     @Test
-    public void success() throws Exception {
+    public void serialization() throws Exception {
         String jsonString =
                 "{\"name\":\"a\"," +
                         "\"baseCurrency\":\"CAD\"," +

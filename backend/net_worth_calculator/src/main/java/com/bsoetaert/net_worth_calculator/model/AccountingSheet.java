@@ -69,15 +69,19 @@ public class AccountingSheet {
         AccountingItem item = findItem(id, assets);
 
         if(item == null) {
-            item  = findItem(id, liabilities);
+            item = findItem(id, liabilities);
         }
 
         return item;
     }
 
     private AccountingItem findItem(Integer id, List<AccountingItem> items) {
+        if(items == null) {
+            return null;
+        }
+
         for (AccountingItem item : items) {
-            if (item.getId().equals(id)) {
+            if (item.getId() != null && item.getId().equals(id)) {
                 return item;
             }
         }
