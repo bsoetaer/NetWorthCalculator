@@ -11,25 +11,22 @@ public class AccountingItemTests {
     public void success() throws Exception {
         String jsonString =
                 "{\"name\":\"a\"," +
-                        "\"values\":[{}]}";
+                    "\"id\":1," +
+                    "\"category\":2," +
+                    "\"values\":[{}]}";
 
         ObjectMapper mapper = new ObjectMapper();
         AccountingItem readValue = mapper.readValue(jsonString, AccountingItem.class);
 
-        assertEquals(readValue.getName(), "a");
-        //assertEquals(readValue.getValues().length, 1);
+        assertEquals("a", readValue.getName());
+        assertEquals(1, readValue.getId());
+        assertEquals(2, readValue.getCategory());
+        assertEquals(1, readValue.getValues().size());
 
         String deserialized = mapper.writeValueAsString(readValue);
         assertTrue(deserialized.contains("name"));
+        assertTrue(deserialized.contains("id"));
+        assertTrue(deserialized.contains("category"));
         assertTrue(deserialized.contains("values"));
-    }
-
-    @Test
-    public void missingFields() {
-        String jsonString =
-                "{}";
-
-        ObjectMapper mapper = new ObjectMapper();
-        assertDoesNotThrow(() -> { mapper.readValue(jsonString, AccountingItem.class); });
     }
 }

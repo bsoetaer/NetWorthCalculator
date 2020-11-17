@@ -1,7 +1,5 @@
 package com.bsoetaert.net_worth_calculator;
 
-import com.bsoetaert.net_worth_calculator.model.Currency;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;

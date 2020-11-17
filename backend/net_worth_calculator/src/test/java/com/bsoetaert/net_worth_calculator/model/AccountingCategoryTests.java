@@ -11,26 +11,17 @@ public class AccountingCategoryTests {
     @Test
     public void success() throws Exception {
         String jsonString =
-                "{\"category\":\"a\"," +
-                        "\"values\":[{}]}";
+                "{\"name\":\"a\"," +
+                        "\"id\":1}";
 
         ObjectMapper mapper = new ObjectMapper();
         AccountingCategory readValue = mapper.readValue(jsonString, AccountingCategory.class);
 
-        //assertEquals(readValue.getCategory(), "a");
-        //assertEquals(readValue.getValues().length, 1);
+        assertEquals("a", readValue.getName());
+        assertEquals(1, readValue.getId());
 
         String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("category"));
-        assertTrue(deserialized.contains("values"));
-    }
-
-    @Test
-    public void missingFields() {
-        String jsonString =
-                "{}";
-
-        ObjectMapper mapper = new ObjectMapper();
-        assertDoesNotThrow(() -> { mapper.readValue(jsonString, AccountingCategory.class); });
+        assertTrue(deserialized.contains("name"));
+        assertTrue(deserialized.contains("id"));
     }
 }

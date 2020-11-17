@@ -1,34 +1,35 @@
 package com.bsoetaert.net_worth_calculator;
 
-import com.bsoetaert.net_worth_calculator.model.Accounting;
-import com.bsoetaert.net_worth_calculator.model.AccountingItem;
 import com.bsoetaert.net_worth_calculator.model.AccountingSheet;
-import com.bsoetaert.net_worth_calculator.model.AccountingValue;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.*;
 
 public class DataStore {
-    private static Map<String, CurrencyRate> exchangeRates = new HashMap<>();
+    private static CurrencyExchange exchange = null;
 
     private static Map<Integer, AccountingSheet> userSessions = new HashMap<>();
 
     private static Integer nextUserId = 1;
 
-    public static Map<String, CurrencyRate> getExchangeRates() {
-        return exchangeRates;
+    public static CurrencyExchange getExchange() {
+        if(exchange == null) {
+            Collection<IRateProvider> rateProviders = new ArrayList<IRateProvider>();
+            rateProviders.add(new ExchangeRatesApiProvider());
+            exchange = new CurrencyExchange(rateProviders);
+        }
+        return exchange;
     }
 
-    public static void setExchangeRates(Map<String, CurrencyRate> exchangeRates) {
-        DataStore.exchangeRates = exchangeRates;
+    public static void setExchange(CurrencyExchange exchange) {
+        DataStore.exchange = exchange;
     }
 
     public static void reset() {
-        exchangeRates = new HashMap<>();
+        exchange = null;
         userSessions = new HashMap<>();
         nextUserId = 1;
     }
@@ -45,6 +46,10 @@ public class DataStore {
 
     public static AccountingSheet getSheet(Integer userId) {
         return userSessions.get(userId);
+    }
+
+    public static void setSheet(Integer userId, AccountingSheet sheet) {
+        userSessions.put(userId, sheet);
     }
 
     private static AccountingSheet createBaseData() {

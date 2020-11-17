@@ -5,11 +5,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import { isAssertionExpression } from 'typescript';
 
 const useStyles = makeStyles({
     root: {
@@ -67,7 +64,7 @@ const ItemTableCell = withStyles((theme) => ({
     }
   }))(TableCell);
 
-// TODO Make this apply to the currency symbol
+// TODO Make fontSize apply to the currency symbol
 const TotalTableCell = withStyles((theme) => ({
     root: {
         padding: '12px 16px 12px 16px',
@@ -104,13 +101,13 @@ function AccountingTable(props) {
                         <TotalTableCell key="Value" align='right' colSpan={props.columns.length - 1}>
                             <CurrencyTextField 
                                 className={classes.total}
-                                readOnly={true}
                                 currencySymbol={props.currency}
                                 decimalCharacter="."
                                 digitGroupSeparator=","
                                 outputFormat="string"
-                                value={props.total}>
-                            </CurrencyTextField>
+                                readOnly={true}
+                                value={props.total}
+                            />
                         </TotalTableCell>
                     </TableRow>
                 </TableHead>
@@ -137,7 +134,6 @@ function AccountingTable(props) {
                                     <ItemTableCell align={col.accessor === 'value' ? "right" : "center"} key = {col.accessor}>
                                         <CurrencyTextField 
                                             className={(col.accessor === 'value' ? classes.edit : classes.nonedit)}
-                                            readOnly={(col.accessor !== 'value')}
                                             currencySymbol={props.currency}
                                             decimalCharacter="."
                                             digitGroupSeparator=","
@@ -145,8 +141,9 @@ function AccountingTable(props) {
                                             onBlur={(e, v) => props.onChange(e, v, row.id, col.accessor)}
                                             onKeyPress={(e) => onKeyPress(e)}
                                             outputFormat="string"
-                                            value={row.values.find(e => e.name === col.accessor).value}>
-                                        </CurrencyTextField>
+                                            readOnly={(col.accessor !== 'value')}
+                                            value={row.values.find(e => e.name === col.accessor).value}
+                                        />
                                     </ItemTableCell>
                                 ))}
                             </TableRow>

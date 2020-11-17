@@ -1,11 +1,7 @@
 package com.bsoetaert.net_worth_calculator.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -69,22 +65,22 @@ public class AccountingSheet {
         this.categories = categories;
     }
 
-    public AccountingItem getAsset(Integer id) {
-        for (AccountingItem item : assets) {
+    public AccountingItem getItem(Integer id) {
+        AccountingItem item = findItem(id, assets);
+
+        if(item == null) {
+            item  = findItem(id, liabilities);
+        }
+
+        return item;
+    }
+
+    private AccountingItem findItem(Integer id, List<AccountingItem> items) {
+        for (AccountingItem item : items) {
             if (item.getId().equals(id)) {
                 return item;
             }
         }
         return null;
     }
-
-    public AccountingItem getLiability(Integer id) {
-        for (AccountingItem item : liabilities) {
-            if (item.getId().equals(id)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
 }

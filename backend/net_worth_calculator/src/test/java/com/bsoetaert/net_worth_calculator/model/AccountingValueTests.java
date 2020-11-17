@@ -19,24 +19,15 @@ public class AccountingValueTests {
         ObjectMapper mapper = new ObjectMapper();
         AccountingValue readValue = mapper.readValue(jsonString, AccountingValue.class);
 
-        assertEquals(readValue.getName(), "a");
-        assertEquals(readValue.getBaseCurrency(), "CAD");
-        assertEquals(readValue.getBaseValue(), new BigDecimal(String.valueOf(5.5)));
-        assertEquals(readValue.getValue(), new BigDecimal(String.valueOf(5.5)));
+        assertEquals("a", readValue.getName());
+        assertEquals("CAD", readValue.getBaseCurrency());
+        assertEquals(new BigDecimal(String.valueOf(5.5)), readValue.getBaseValue());
+        assertEquals(new BigDecimal(String.valueOf(5.5)), readValue.getValue());
 
         String deserialized = mapper.writeValueAsString(readValue);
         assertTrue(deserialized.contains("name"));
-        assertTrue(deserialized.contains("baseCurrency"));
-        assertTrue(deserialized.contains("baseValue"));
         assertTrue(deserialized.contains("value"));
-    }
-
-    @Test
-    public void missingFields() {
-        String jsonString =
-                "{}";
-
-        ObjectMapper mapper = new ObjectMapper();
-        assertDoesNotThrow(() -> { mapper.readValue(jsonString, AccountingValue.class); });
+        assertFalse(deserialized.contains("baseCurrency"));
+        assertFalse(deserialized.contains("baseValue"));
     }
 }

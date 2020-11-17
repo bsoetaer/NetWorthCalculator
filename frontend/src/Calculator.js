@@ -1,7 +1,6 @@
 import AccountingTable from './AccountingTable';
 import CurrencyPicker from './CurrencyPicker';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 const { Component } = require("react");
@@ -28,6 +27,33 @@ const TotalGrid = withStyles((theme) => ({
   }))(Grid);
 
 class Calculator extends Component {
+
+    static assetColumns = [
+        {
+            Header: 'Name',
+            accessor: 'name'
+        },
+        {
+            Header: 'Amount',
+            accessor: 'value'
+        }
+    ];
+
+    static liabilityColumns = [
+        {
+            Header: 'Name',
+            accessor: 'name'
+        },
+        {
+            Header: 'Monthly Payments',
+            accessor: 'payment'
+        },
+        {
+            Header: 'Amount',
+            accessor: 'value'
+        }
+    ]
+
     constructor(props) {
         super(props);
         this.state = {
@@ -49,29 +75,25 @@ class Calculator extends Component {
 
     handleCurrencyChanged(currency)
     {
-        let newState = Object.assign({}, this.state);
-        newState.currency.name = currency.name;
-        newState.currency.symbol = currency.symbol;
-        this.setState(newState);
-        this.convert(currency.name, currency.symbol);
+        let url = new URL("http://localhost:8080/convert");
+        let params = {userId: this.state.userId, currency: currency.name};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+        fetch(url)
+            .then(response => this.convertResponse(response))
+            .then((data) => {
+                let newState = Object.assign({}, this.state);
+                newState.currency.name = currency.name;
+                newState.currency.symbol = currency.symbol;
+                newState.totals = data.totals;
+                newState.assets = data.assets;
+                newState.liabilities = data.liabilities;
+                this.setState(newState);
+            })
+            .catch(err => { alert(err) });
     }
 
     handleValueChanged(event, value, itemType, itemId, valueName) {
-        //TODO Maybe change this to object spread?
-        let newState = Object.assign({}, this.state);
-        let itemToUpdate = newState[itemType.toLowerCase()].find(item => item.id === itemId).values.find(x => x.name === valueName);
-        itemToUpdate.value = value;
-        this.setState(newState);
-        this.updateValue(itemType, itemId, valueName, value);
-    }
-
-    componentDidMount()
-    {
-        this.createSession();
-    }
-
-    updateValue(itemType, itemId, valueName, value)
-    {
         let update = {
             "currency": this.state.currency.name,
             "name": valueName,
@@ -81,8 +103,6 @@ class Calculator extends Component {
         let url = new URL("http://localhost:8080/value");
         let params = {userId: this.state.userId, id: itemId};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-        console.log(url.toString());
 
         const requestOptions = {
             method: 'PUT',
@@ -99,6 +119,11 @@ class Calculator extends Component {
                 this.setState(newState);
             })
             .catch(err => { alert(err) });
+    }
+
+    componentDidMount()
+    {
+        this.createSession();
     }
 
     convertResponse(response) {
@@ -122,11 +147,11 @@ class Calculator extends Component {
                 newState.userId = data.userId;
                 this.setState(newState);
             })
-            .then(() => this.getCategories())
+            .then(() => this.fetchCategories())
             .catch(err => { alert(err) });
     }
 
-    getCategories()
+    fetchCategories()
     {
         let url = new URL("http://localhost:8080/categories");
         let params = {userId:this.state.userId};
@@ -139,44 +164,11 @@ class Calculator extends Component {
                 newState.categories = data;
                 this.setState(newState);
             })
-            .then(() => this.convert(this.state.currency.name, this.state.currency.symbol))
+            .then(() => this.handleCurrencyChanged(this.state.currency))
             .catch(err => { alert(err) });
     }
 
-    convert(currencyName, currencySymbol)
-    {
-        let url = new URL("http://localhost:8080/convert");
-        let params = {userId: this.state.userId, currency: currencyName};
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-
-        fetch(url)
-            .then(response => this.convertResponse(response))
-            .then((data) => {
-                let newState = Object.assign({}, this.state);
-                newState.currency.name = currencyName;
-                newState.currency.symbol = currencySymbol;
-                newState.totals = data.totals;
-                newState.assets = data.assets;
-                newState.liabilities = data.liabilities;
-                this.setState(newState);
-            })
-            .catch(err => { alert(err) });
-    }
-
-    calculateTotals()
-    {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.state)
-        };
-        fetch('http://localhost:8080/calculate', requestOptions)
-            .then(response => response.json())
-            .then((data) => this.setState(data))
-            .catch(err => { alert(err) });
-    }
-
-    getMatchingCategories(items)
+    matchingCategories(items)
     {
         let itemCategoryIds = new Set();
         items.forEach(item => {
@@ -196,32 +188,8 @@ class Calculator extends Component {
 
     render() {
         const { classes } = this.props;
-        const assetCategories = this.getMatchingCategories(this.state.assets);
-        const liabilityCategories = this.getMatchingCategories(this.state.liabilities);
-        const assetsColumns = [
-            {
-                Header: 'Name',
-                accessor: 'name'
-            },
-            {
-                Header: 'Amount',
-                accessor: 'value'
-            }
-        ];
-        const liabilitiesColumns = [
-            {
-                Header: 'Name',
-                accessor: 'name'
-            },
-            {
-                Header: 'Monthly Payments',
-                accessor: 'payment'
-            },
-            {
-                Header: 'Amount',
-                accessor: 'value'
-            }
-        ]
+        const assetCategories = this.matchingCategories(this.state.assets);
+        const liabilityCategories = this.matchingCategories(this.state.liabilities);
         
         return (
             <div>
@@ -233,37 +201,40 @@ class Calculator extends Component {
                         />
                     </Grid>
                     <TotalGrid item xs={6} align="left" padding="16px">
-                        Net Worth:
+                        Net Worth
                     </TotalGrid>
                     <TotalGrid item xs={6} align="right" >
                         <CurrencyTextField 
                             className={classes.nonedit}
-                            readOnly={true}
                             currencySymbol={this.state.currency.symbol} 
                             decimalCharacter="."
                             digitGroupSeparator=","
                             outputFormat="string"
-                            value={this.state.totals.netWorth}/>
+                            readOnly={true}
+                            value={this.state.totals.netWorth}
+                        />
                     </TotalGrid>
                     <Grid item xs={6}>
                         <AccountingTable 
                             categories={assetCategories}
-                            columns={assetsColumns} 
-                            data={this.state.assets}
-                            total={this.state.totals.assets}
-                            name='Assets' 
+                            columns={Calculator.assetColumns} 
                             currency={this.state.currency.symbol} 
-                            onChange={(e,v,itemId,valueName) => this.handleValueChanged(e, v, 'assets', itemId, valueName)}/>
+                            data={this.state.assets}
+                            name='Assets'
+                            onChange={(e,v,itemId,valueName) => this.handleValueChanged(e, v, 'assets', itemId, valueName)}
+                            total={this.state.totals.assets}
+                        />
                     </Grid>
                     <Grid item xs={6}>
                         <AccountingTable 
-                            columns={liabilitiesColumns} 
-                            data={this.state.liabilities}
                             categories={liabilityCategories}
-                            total={this.state.totals.liabilities}
-                            name='Liabilities' 
+                            columns={Calculator.liabilityColumns} 
                             currency={this.state.currency.symbol} 
-                            onChange={(e,v,itemId,valueName) => this.handleValueChanged(e, v, 'liabilities', itemId, valueName)}/>
+                            data={this.state.liabilities}
+                            name='Liabilities' 
+                            onChange={(e,v,itemId,valueName) => this.handleValueChanged(e, v, 'liabilities', itemId, valueName)}
+                            total={this.state.totals.liabilities}
+                        />
                     </Grid>
                 </Grid>
             </div>
