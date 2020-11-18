@@ -13,7 +13,7 @@ public class Validator {
     }
 
     public static void validateCurrency(String currency) {
-        if(currency == null || currency.length() != 3)
+        if(currency == null || currency.isBlank() ||currency.length() != 3)
         {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Currency element must be a 3 character identifier.");
         }

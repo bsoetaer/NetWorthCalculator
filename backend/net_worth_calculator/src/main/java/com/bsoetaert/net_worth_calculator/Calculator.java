@@ -38,7 +38,7 @@ public class Calculator {
     }
 
     private BigDecimal total(List<AccountingItem> items) {
-        BigDecimal total = new BigDecimal(0);
+        BigDecimal total = new BigDecimal(0).setScale(2);
         for(AccountingItem item : items)
         {
             for(AccountingValue value : item.getValues())

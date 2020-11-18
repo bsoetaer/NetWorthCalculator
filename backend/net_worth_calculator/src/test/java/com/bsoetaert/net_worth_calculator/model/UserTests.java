@@ -17,7 +17,7 @@ public class UserTests {
 
         assertEquals(1, readValue.getUserId());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("userId"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("userId"));
     }
 }

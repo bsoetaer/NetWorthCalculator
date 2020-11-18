@@ -19,8 +19,8 @@ public class AccountingCategoryTests {
         assertEquals("a", readValue.getName());
         assertEquals(1, readValue.getId());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("name"));
-        assertTrue(deserialized.contains("id"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("name"));
+        assertTrue(serialized.contains("id"));
     }
 }

@@ -26,11 +26,11 @@ public class AccountingItemTests {
         assertEquals(2, readValue.getCategory());
         assertEquals(1, readValue.getValues().size());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("name"));
-        assertTrue(deserialized.contains("id"));
-        assertTrue(deserialized.contains("category"));
-        assertTrue(deserialized.contains("values"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("name"));
+        assertTrue(serialized.contains("id"));
+        assertTrue(serialized.contains("category"));
+        assertTrue(serialized.contains("values"));
     }
 
     @Test

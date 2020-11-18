@@ -25,11 +25,11 @@ public class AccountingSheetTests {
         assertEquals(2, readValue.getLiabilities().size());
         assertEquals(3, readValue.getCategories().size());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("totals"));
-        assertTrue(deserialized.contains("assets"));
-        assertTrue(deserialized.contains("liabilities"));
-        assertFalse(deserialized.contains("categories"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("totals"));
+        assertTrue(serialized.contains("assets"));
+        assertTrue(serialized.contains("liabilities"));
+        assertFalse(serialized.contains("categories"));
     }
 
     @Test

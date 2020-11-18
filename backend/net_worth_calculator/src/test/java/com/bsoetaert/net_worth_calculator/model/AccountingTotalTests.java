@@ -23,9 +23,9 @@ public class AccountingTotalTests {
         assertEquals(new BigDecimal(String.valueOf(2)), readValue.getLiabilities());
         assertEquals(new BigDecimal(String.valueOf(3)), readValue.getNetWorth());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("assets"));
-        assertTrue(deserialized.contains("liabilities"));
-        assertTrue(deserialized.contains("netWorth"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("assets"));
+        assertTrue(serialized.contains("liabilities"));
+        assertTrue(serialized.contains("netWorth"));
     }
 }

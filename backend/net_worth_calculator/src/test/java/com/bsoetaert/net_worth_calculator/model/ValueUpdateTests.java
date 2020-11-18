@@ -25,10 +25,10 @@ public class ValueUpdateTests {
         assertEquals(new BigDecimal(String.valueOf(2.5)), readValue.getValue());
         assertEquals(1, readValue.getId());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("name"));
-        assertTrue(deserialized.contains("currency"));
-        assertTrue(deserialized.contains("value"));
-        assertTrue(deserialized.contains("id"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("name"));
+        assertTrue(serialized.contains("currency"));
+        assertTrue(serialized.contains("value"));
+        assertTrue(serialized.contains("id"));
     }
 }

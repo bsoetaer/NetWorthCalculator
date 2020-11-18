@@ -24,10 +24,10 @@ public class AccountingValueTests {
         assertEquals(new BigDecimal(String.valueOf(5.5)), readValue.getBaseValue());
         assertEquals(new BigDecimal(String.valueOf(5.5)), readValue.getValue());
 
-        String deserialized = mapper.writeValueAsString(readValue);
-        assertTrue(deserialized.contains("name"));
-        assertTrue(deserialized.contains("value"));
-        assertFalse(deserialized.contains("baseCurrency"));
-        assertFalse(deserialized.contains("baseValue"));
+        String serialized = mapper.writeValueAsString(readValue);
+        assertTrue(serialized.contains("name"));
+        assertTrue(serialized.contains("value"));
+        assertFalse(serialized.contains("baseCurrency"));
+        assertFalse(serialized.contains("baseValue"));
     }
 }
