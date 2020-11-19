@@ -104,6 +104,7 @@ function AccountingTable(props) {
                                 currencySymbol={props.currency}
                                 decimalCharacter="."
                                 digitGroupSeparator=","
+                                maximumValue="10000000000000000" // 3 more 0s than individual values support.
                                 outputFormat="string"
                                 readOnly={true}
                                 value={props.total}

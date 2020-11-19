@@ -209,6 +209,7 @@ class Calculator extends Component {
                             currencySymbol={this.state.currency.symbol} 
                             decimalCharacter="."
                             digitGroupSeparator=","
+                            maximumValue="10000000000000000" // 3 more 0s than individual values support.
                             outputFormat="string"
                             readOnly={true}
                             value={this.state.totals.netWorth}
