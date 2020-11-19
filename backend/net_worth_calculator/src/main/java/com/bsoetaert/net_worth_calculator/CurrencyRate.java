@@ -33,12 +33,12 @@ public class CurrencyRate {
         this.conversionRates = conversionRates;
     }
 
-    public Boolean canConvert(String newCurrency) {
-        return conversionRates.containsKey(newCurrency);
+    public Boolean canConvert(String oldCurrency) {
+        return conversionRates.containsKey(oldCurrency);
     }
 
-    public BigDecimal convertFrom(BigDecimal value, String newCurrency) {
-        return value.multiply(conversionRates.get(newCurrency));
+    public BigDecimal convertFrom(BigDecimal value, String oldCurrency) {
+        return value.multiply(conversionRates.get(oldCurrency));
     }
 
     public CurrencyRate(String targetCurrency) {
