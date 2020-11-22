@@ -4,6 +4,6 @@ A simple net worth calculator that has both assets and liabilities. It does a si
 
 This is a development project currently and does not have production artifacts generated.
 * To run the frontend: Run "npm start" in the frontend directory.
-* To run the backend: Run it from intellij editor or another editor.
+* To run the backend: Run it from your java editor.
 
 Current currencies picked are some of the most traded currencies as of November 2020 and it defaults to being in Canadian currency. Exchange rates are fetched daily from https://exchangeratesapi.io/.
